@@ -9,6 +9,7 @@
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.Reader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -22,9 +23,9 @@ public class MovieDataReader implements MovieDataReaderInterface {
 		movieList = new ArrayList<MovieInterface>();
 	}	
 	@Override
-	public List<MovieInterface> readDataSet(FileReader inputFileReader) throws IOException, DataFormatException {
+	public List<MovieInterface> readDataSet(Reader inputFileReader) throws IOException, DataFormatException {
 		// TODO Auto-generated method stub
-		FileReader reader = inputFileReader;
+		Reader reader = inputFileReader;
 		int data = reader.read();
 		
 		//fields of a movieObject
@@ -51,17 +52,20 @@ public class MovieDataReader implements MovieDataReaderInterface {
 		int lineNumber = 0;
 		//iterate through all the file
 		while(data != -1) {
+			//System.out.println("looping!!!");
 			if(lineNumber == 0) {
-				while(data!=13) {
+				while(data!=10) {
+					//System.out.println("looping in the first line");
 					data = reader.read();
 				}
 				lineNumber++;
 				data = reader.read();
-				data = reader.read();
+				//data = reader.read();
 				continue;
 			}
 			//iterate this line
-			while(data != 13) {
+			while(data != 10) {
+				//System.out.println("enter second loop");
 				if(data == 34) {
 					/////////////////modified
 					data = reader.read();
@@ -81,6 +85,7 @@ public class MovieDataReader implements MovieDataReaderInterface {
 					}
 					/////modified
 					hashtable.put(counter, thisString);
+					//System.out.println(counter+" : "+thisString);
 					counter++;
 					thisString = "";
 					data = reader.read();
@@ -94,6 +99,7 @@ public class MovieDataReader implements MovieDataReaderInterface {
 					
 					
 					hashtable.put(counter,thisString);
+					//System.out.println(counter+" : "+thisString);
 					data = reader.read();
 					counter++;
 					thisString="";
@@ -106,12 +112,13 @@ public class MovieDataReader implements MovieDataReaderInterface {
 			}
 			//end of a line
 			if(counter != 12) {
+				System.out.println("counter: "+counter);
 				throw new DataFormatException("the cloumns are not right");
 			}
 			hashtable.put(counter, thisString);
+			//hashtable.print();
 			title = (String)hashtable.get(0);
 			original_title = (String)hashtable.get(1);
-			//System.out.println("year:"+hashtable.get(2));
 			year = Integer.valueOf(hashtable.get(2));
 			//getting the list of genre
 			genres = (String)hashtable.get(3);
@@ -131,7 +138,7 @@ public class MovieDataReader implements MovieDataReaderInterface {
 			counter = 0;
 			thisString = "";
 			data = reader.read();
-			data = reader.read();
+			//data = reader.read();
 			hashtable.clear();
 		}
 		return movieList;

@@ -80,9 +80,9 @@ public class MovieObject implements MovieInterface{
 	@Override
 	public int compareTo(MovieInterface otherMovie) {
 		// TODO Auto-generated method stub
-		if(this.getAvgVote() > otherMovie.getAvgVote())
-			return 1;
 		if(this.getAvgVote() < otherMovie.getAvgVote())
+			return 1;
+		if(this.getAvgVote() > otherMovie.getAvgVote())
 			return -1;
 		return 0;				
 	}
