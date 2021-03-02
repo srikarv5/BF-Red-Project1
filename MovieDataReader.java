@@ -1,3 +1,11 @@
+// --== CS400 File Header Information ==--
+// Name: irving peng
+// Email: cpeng53@wisc.edu
+// Team: BF
+// Role: Data Wrangler
+// TA: BRIANNA COCHRAN
+// Lecturer: GARY DAHL
+// Notes to Grader: <optional extra notes>
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
